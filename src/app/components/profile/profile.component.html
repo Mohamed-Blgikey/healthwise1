@@ -1,0 +1,186 @@
+<div class="text-right" style="overflow: hidden;">
+  <button
+    style="float: right; background-color: #3F51B5; outline: none; border: none; margin: 20px 0px; color: white; cursor: pointer; padding: 5px 20px; font-size: 21px;"
+    mat-button onclick="window.print()">Print</button>
+</div>
+<div>
+  <div class="row ">
+    <div class=" col-md-6  bg-light">
+      <div class="card">
+        <div class="border"></div>
+        <div style="position: relative;">
+          <div class="avatar">
+            <img class="mat-elevation-z1" [src]="dataProfile?.imageProfile ?? 'assets/images/image-placeholder.png'"
+              [alt]="dataProfile?.firstName + dataProfile?.lastName" />
+          </div>
+          <button class="bImg" mat-mini-fab data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <hr />
+        <div class="stats">
+          <h2>{{dataProfile?.firstName}} {{dataProfile?.lastName}}</h2>
+          <hr />
+          <div>
+            <blockquote>“{{dataProfile?.email}}”</blockquote>
+            <p>BirthDate: {{dataProfile?.birthDate}}</p>
+            <p>Phone: {{dataProfile?.mobile}}</p>
+            <p>Male: {{dataProfile?.male}}</p>
+            <p>Doctor: {{dataProfile?.doctor}}</p>
+            <button style="background-color: #FF4081; color: white;" mat-button color="warn" data-bs-toggle="modal"
+              data-bs-target="#exampleModal1">Edit
+              Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class=" col-md-5  bg-light">
+      <div class="shadow p-2" style="margin: 50px auto 0;">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel molestiae consequatur voluptatibus alias ut
+          fugit accusamus ipsum? Dolore iusto quam, veniam debitis voluptatibus a, odio non ratione vero asperiores
+          officiis! Ipsa, necessitatibus dolorum est esse, repellat tempora corporis dolor, quae exercitationem tenetur
+          quidem facilis non. Maxime, adipisci tempora nesciunt velit excepturi necessitatibus libero id numquam magnam
+          ad esse. Animi id odit distinctio earum cumque amet, explicabo laborum magni adipisci temporibus delectus
+          minus dignissimos recusandae! Labore corrupti, necessitatibus iste soluta aliquid non provident minus tempora
+          quod voluptates molestias ab porro quaerat animi blanditiis doloremque maiores repellendus quasi, atque earum.
+          Voluptates numquam qui facere ducimus dolore ab! Repellat vel similique in, earum inventore, quidem pariatur
+          distinctio assumenda consequuntur illum atque aliquid sunt eligendi cumque sequi autem error obcaecati
+          repudiandae necessitatibus ut. Adipisci quidem laborum minus ipsa ex a voluptates ipsum sit libero
+          reprehenderit eaque, minima quod perspiciatis, nulla quam maxime porro impedit enim? Pariatur quia voluptatum
+          quod dicta eveniet quas soluta nam itaque omnis! Laborum, quis reiciendis explicabo officia similique, facilis
+          omnis quam eligendi alias ipsa numquam sequi optio nesciunt error quo consequatur rem necessitatibus ipsam
+          aliquid cupiditate consequuntur cumque? Laborum libero ipsum quo? Alias ea laborum non exercitationem sed
+          aliquam quam voluptatum voluptas corporis, unde hic vitae placeat facilis, fuga error illo est velit adipisci
+          quos commodi maiores assumenda. Quisquam velit magni, odit accusantium ipsam ullam veritatis sint dignissimos
+          quia! Aspernatur veniam eum unde dolore voluptatem nisi corporis optio vero facilis, ea quaerat dolor
+          molestias praesentium. Nulla eaque asperiores magni, reiciendis veniam, totam iure in possimus excepturi modi
+          ex tempore suscipit perspiciatis! Doloremque possimus ut reprehenderit, at id nam dolor, modi aspernatur eaque
+          excepturi nesciunt! Tempore illum praesentium ut suscipit, facere consequuntur molestiae atque eos, officia
+          iure perferendis ducimus aspernatur. Asperiores molestias officia est perferendis minima ut esse quis libero
+          in?</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Image Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="imageUpload" (ngSubmit)="addImg()">
+          <input class="form-control" type="file" (change)="uploadFile($event)" formControlName="imageUrl" />
+          <div class="center margin-top">
+            <button [disabled]="imageUpload.invalid" type="submit" mat-raised-button color="primary"
+              data-bs-dismiss="modal">Edit</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mat-raised-button color="warn" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit User Info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateForm" (ngSubmit)="submit()">
+          <div style="margin: auto; width: 50%; display: flex; justify-content: space-around;">
+            <mat-form-field style="padding: 5px;">
+              <input matInput placeholder="FirstName" formControlName="firstName" />
+              <mat-error *ngIf="firstName?.errors?.['required']">
+                FirstName is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="padding: 5px;">
+              <input matInput placeholder="LastName" formControlName="lastName" />
+              <mat-error *ngIf="lastName?.errors?.['required']">
+                LastName is required
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div style="margin: auto; width: 50%;display: flex; justify-content: space-around; ">
+
+            <mat-form-field style="padding: 5px;">
+              <input matInput type="text" placeholder="Phone" formControlName="mobile" />
+              <mat-error *ngIf="mobile?.errors?.['required']">
+                Phone is required
+              </mat-error>
+
+              <mat-error *ngIf="mobile?.errors?.['pattern']">
+                invalid Phome Number
+              </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field style="padding: 5px;">
+              <input matInput type="date" placeholder="BirthDate" formControlName="birthDate" />
+              <mat-error *ngIf="birthDate?.errors?.['required']">
+                BirthDate is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <div style="margin: auto; width: 50%;display: flex; justify-content: space-around; ">
+
+            <mat-form-field style="padding: 5px;">
+              <mat-label>Gender</mat-label>
+              <mat-select style="z-index: 999;" formControlName="male">
+                <mat-option style="position: relative; z-index: 9999999;" value="true">Male</mat-option>
+                <mat-option style="z-index: 9999999;" value="false">Female</mat-option>
+              </mat-select>
+              <mat-hint>Errors appear instantly!</mat-hint>
+              <mat-error *ngIf="male?.errors?.['required']">You must make a selection</mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="padding: 5px;">
+              <mat-label>Doctor</mat-label>
+              <mat-select formControlName="doctor">
+                <mat-option value="true">Doctor</mat-option>
+                <mat-option value="false">Other</mat-option>
+              </mat-select>
+              <mat-hint>Errors appear instantly!</mat-hint>
+              <mat-error *ngIf="doctor?.errors?.['required']">You must make a selection</mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <div style="margin: auto; width: 50%;display: flex; justify-content: space-around; ">
+
+
+
+
+          </div>
+          <br>
+          <button [disabled]="updateForm.invalid" mat-raised-button color="primary"
+            data-bs-dismiss="modal">Update</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mat-raised-button color="warn" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

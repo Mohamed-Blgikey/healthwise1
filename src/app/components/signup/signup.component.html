@@ -1,0 +1,99 @@
+<div class="form-container mat-elevation-z5">
+  <h1>Sign Up a New User!</h1>
+  <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+    <div style="margin: auto; width: 50%; display: flex; justify-content: space-around;">
+      <mat-form-field style="padding: 2px;">
+        <input matInput placeholder="FirstName" formControlName="firstName" />
+        <mat-error *ngIf="firstName?.errors?.['required']">
+          FirstName is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="padding: 2px;">
+        <input matInput placeholder="LastName" formControlName="lastName" />
+        <mat-error *ngIf="lastName?.errors?.['required']">
+          LastName is required
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field>
+      <input matInput placeholder="Email address" formControlName="email" />
+      <mat-error *ngIf="email?.errors?.['required']">
+        Email address is required
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="date" placeholder="BirthDate" formControlName="birthDate" />
+      <mat-error *ngIf="birthDate?.errors?.['required']">
+        BirthDate is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="male">
+        <mat-option value="true">Male</mat-option>
+        <mat-option value="false">Female</mat-option>
+      </mat-select>
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error *ngIf="male?.errors?.['required']">You must make a selection</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Doctor</mat-label>
+      <mat-select formControlName="doctor">
+        <mat-option value="true">Doctor</mat-option>
+        <mat-option value="false">Other</mat-option>
+      </mat-select>
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error *ngIf="doctor?.errors?.['required']">You must make a selection</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Phone" formControlName="mobile" />
+      <mat-error *ngIf="mobile?.errors?.['required']">
+        Phone is required
+      </mat-error>
+
+      <mat-error *ngIf="mobile?.errors?.['pattern']">
+        invalid Phome Number
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" formControlName="password" />
+      <mat-error *ngIf="password?.errors?.['required']">
+        Password is required
+      </mat-error>
+
+      <mat-error *ngIf="password?.errors?.['pattern']">
+        At least 6 characters in length
+        Lowercase letters
+        Uppercase letters
+        Numbers Special characters
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+      <mat-error *ngIf="confirmPassword?.errors?.['required']">
+        Confirm Password is required
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">
+      Passwords should match
+    </mat-error>
+    <div class="center margin-top">
+      <button [disabled]="signUpForm.invalid" type="submit" mat-raised-button color="primary">Sign Up!</button>
+    </div>
+  </form>
+</div>

@@ -11,6 +11,9 @@ import {
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatStreamService } from 'src/app/services/chat-stream.service';
+const StreamChat = require('stream-chat').StreamChat;
+
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -31,6 +34,7 @@ export function passwordsMatchValidator(): ValidatorFn {
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+  dataProfile: any;
   signUpForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -52,6 +56,7 @@ export class SignupComponent implements OnInit {
       ]),
       doctor: new FormControl('', [Validators.required]),
       male: new FormControl('', [Validators.required]),
+      department: new FormControl('', [Validators.required]),
     },
     { validators: passwordsMatchValidator() }
   );
@@ -60,7 +65,8 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private _router: Router,
-    private fs: AngularFirestore
+    private fs: AngularFirestore,
+    private _chatStream:ChatStreamService
   ) {}
   ngOnInit(): void {}
 
@@ -99,10 +105,17 @@ export class SignupComponent implements OnInit {
     return this.signUpForm.get('male');
   }
 
+  get department() {
+    return this.signUpForm.get('department');
+  }
+
   submit() {
-    if (!this.signUpForm.valid) {
-      return;
-    }
+    // if (!this.signUpForm.valid) {
+    //   return;
+    // }
+
+    let doctorState = false;
+    let maleState = false;
 
     const {
       email,
@@ -111,10 +124,18 @@ export class SignupComponent implements OnInit {
       lastName,
       birthDate,
       mobile,
-      doctor,
-      male,
     } = this.signUpForm.value;
-    // console.log(this.signUpForm.value);
+
+    if (this.signUpForm.controls['doctor'].value == "true") {
+      doctorState = true;
+    }  else{
+      doctorState = false
+    }
+    if (this.signUpForm.controls['male'].value == "true") {
+      maleState = true;
+    }  else{
+      maleState = false
+    }
 
     this.authService
       .registerWithEmail(email, password)
@@ -136,15 +157,29 @@ export class SignupComponent implements OnInit {
             lastName: this.lastName?.value,
             mobile: this.mobile?.value,
             birthDate: this.birthDate?.value,
-            male: this.male?.value,
-            doctor: this.doctor?.value,
+            male: maleState,
+            doctor: doctorState,
+            department:this.department?.value,
             email: this.email?.value,
             userId: user.user?.uid,
-            imageProfile: '',
+            imageProfile: 'https://cdn-icons-png.flaticon.com/512/149/149071.png?fbclid=IwAR3iHAtDxgsaERy6fAI-OCciTyJohWwzshszbNb7ICEZjgTKywtZwCZ_MgM',
           })
           .then(() => {
+            this.getUser(user.user.uid);
             this._router.navigate(['/profile']);
           });
+      });
+  }
+
+  private getUser(userId:string) {
+    this.fs
+      .collection('Users')
+      .ref.doc(userId)
+      .get()
+      .then((data) => {
+        this.dataProfile = data.data();
+        // console.log(this.dataProfile);
+        this._chatStream.stupChannel(this.dataProfile?.userId,this.dataProfile?.firstName +' '+this.dataProfile?.lastName,this.dataProfile?.imageProfile);
       });
   }
 }

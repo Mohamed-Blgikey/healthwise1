@@ -1,74 +1,16 @@
-@import url(https://fonts.googleapis.com/css?family=Vidaloka|Oswald:400,300);
-
-.container {
-  height: 100vh;
-  width: 100%;
-  overflow: auto;
-  background: lighten(navajowhite, 10);
-}
-
-.card {
-  position: relative;
-  height: 520px;
-  width: 300px;
-  background: #fff;
-  margin: 50px auto 0;
-  overflow: hidden;
-  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.3);
-  hr {
-    margin: 0 30px;
-  }
-}
-
-.border {
-  position: absolute;
-  top: 13px;
-  left: 13px;
-  height: 490px;
-  width: 270px;
-  border: 3px double #aaa;
-}
-
-.avatar {
-  height: 180px;
-  width: 180px;
-  border-radius: 50%;
-  border: 1px solid #aaa;
-  overflow: hidden;
-  margin: 50px auto 30px;
-  img {
-    width: 200px;
-    margin-left: -10px;
-  }
-}
-
-.bImg {
-  position: absolute;
-  top: 150px;
-  right: 50px;
-}
-.stats {
-  font-family: "Oswald", sans-serif;
-  padding: 0;
-  height: 250px;
-  width: 300px;
-  > div {
-    padding: 10px 0 0 25px;
-  }
-  p {
-    margin: 5px;
-  }
-  h2 {
-    text-align: center;
-    font-family: "Vidaloka", cursive;
-    font-size: 2em;
-    margin: 5px 0 10px;
-  }
+.title{
+  font-size: 18px;
+  font-weight: bold;
 }
 
 
-.cont {
-  position: relative;
+.head{
+  font-family: 'Updock', cursive;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.1rem;
+  text-align: right;
+  text-decoration: underline;
 }
 
 .loading{
@@ -151,7 +93,7 @@
     opacity:0;
   }
 	35% {
-		left: 41%; 
+		left: 41%;
 		-moz-transform:rotate(0deg);
 		-webkit-transform:rotate(0deg);
 		-o-transform:rotate(0deg);
@@ -159,18 +101,18 @@
 		opacity:1;
 	}
 	65% {
-		left:59%; 
-		-moz-transform:rotate(0deg); 
-		-webkit-transform:rotate(0deg); 
+		left:59%;
+		-moz-transform:rotate(0deg);
+		-webkit-transform:rotate(0deg);
 		-o-transform:rotate(0deg);
-		transform:rotate(0deg); 
+		transform:rotate(0deg);
 		opacity:1;
 	}
 	100% {
-		left:100%; 
-		-moz-transform:rotate(-180deg); 
-		-webkit-transform:rotate(-180deg); 
-		-o-transform:rotate(-180deg); 
+		left:100%;
+		-moz-transform:rotate(-180deg);
+		-webkit-transform:rotate(-180deg);
+		-o-transform:rotate(-180deg);
 		transform:rotate(-180deg);
 		opacity:0;
 	}
@@ -178,24 +120,24 @@
 
 @-moz-keyframes move {
 	0% {
-		left:0; 
+		left:0;
 		opacity:0;
 	}
 	35% {
-		left:41%; 
-		-moz-transform:rotate(0deg); 
+		left:41%;
+		-moz-transform:rotate(0deg);
 		transform:rotate(0deg);
 		opacity:1;
 	}
 	65% {
-		left:59%; 
-		-moz-transform:rotate(0deg); 
+		left:59%;
+		-moz-transform:rotate(0deg);
 		transform:rotate(0deg);
 		opacity:1;
 	}
 	100% {
-		left:100%; 
-		-moz-transform:rotate(-180deg); 
+		left:100%;
+		-moz-transform:rotate(-180deg);
 		transform:rotate(-180deg);
 		opacity:0;
 	}
@@ -203,50 +145,50 @@
 
 @-webkit-keyframes move {
 	0% {
-		left:0; 
+		left:0;
 		opacity:0;
 	}
 	35% {
-		left:41%; 
-		-webkit-transform:rotate(0deg); 
-		transform:rotate(0deg); 
+		left:41%;
+		-webkit-transform:rotate(0deg);
+		transform:rotate(0deg);
 		opacity:1;
 	}
 	65% {
-		left:59%; 
-		-webkit-transform:rotate(0deg); 
-		transform:rotate(0deg); 
+		left:59%;
+		-webkit-transform:rotate(0deg);
+		transform:rotate(0deg);
 		opacity:1;
 	}
 	100% {
 		left:100%;
-		-webkit-transform:rotate(-180deg); 
-		transform:rotate(-180deg); 
+		-webkit-transform:rotate(-180deg);
+		transform:rotate(-180deg);
 		opacity:0;
 	}
 }
 
 @-o-keyframes move {
 	0% {
-		left:0; 
+		left:0;
 		opacity:0;
 	}
 	35% {
-		left:41%; 
-		-o-transform:rotate(0deg); 
-		transform:rotate(0deg); 
+		left:41%;
+		-o-transform:rotate(0deg);
+		transform:rotate(0deg);
 		opacity:1;
 	}
 	65% {
-		left:59%; 
-		-o-transform:rotate(0deg); 
-		transform:rotate(0deg); 
+		left:59%;
+		-o-transform:rotate(0deg);
+		transform:rotate(0deg);
 		opacity:1;
 	}
 	100% {
-		left:100%; 
-		-o-transform:rotate(-180deg); 
-		transform:rotate(-180deg); 
+		left:100%;
+		-o-transform:rotate(-180deg);
+		transform:rotate(-180deg);
 		opacity:0;
 	}
 }

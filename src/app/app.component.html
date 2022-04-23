@@ -1,5 +1,5 @@
-<mat-toolbar color="primary">
-  Health Wise
+<mat-toolbar >
+  <a routerLink="/" style="text-decoration: none; color: white;">H-WISE</a>
   <ng-container *ngIf="(_angularFireAuth.authState | async)">
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img width="30" height="30" class="profile-image-toolbar"
@@ -14,16 +14,24 @@
       <mat-icon>login</mat-icon>
       Login
     </button>
+
+
   </ng-container>
 </mat-toolbar>
 
-<div class="content">
+<div>
   <router-outlet></router-outlet>
 </div>
 
 <mat-menu #userMenu="matMenu">
+  <button mat-menu-item routerLink="/profile">
+    <mat-icon>face</mat-icon>
+    Profile
+  </button>
+
   <button mat-menu-item (click)="logOut()">
     <mat-icon>logout</mat-icon>
     Logout
   </button>
 </mat-menu>
+

@@ -3,7 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
-
+const StreamChat = require('stream-chat').StreamChat;
+// import { StreamChat } from 'stream-chat';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,8 +35,11 @@ export class AppComponent {
     this._angularFireAuth
       .signOut()
       .then(() => {
+        const client = StreamChat.getInstance("7hnvpxbuuvjb");
+    // you can still use new StreamChat("api_key");
+        client.disconnectUser();
         localStorage.removeItem('uid');
-        this._router.navigate(['/login']);
+        this._router.navigate(['/home']);
       })
       .catch(() => {
         console.log('Error');

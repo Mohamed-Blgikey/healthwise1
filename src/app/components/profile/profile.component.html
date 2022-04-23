@@ -1,11 +1,33 @@
-<div class="text-right" style="overflow: hidden;">
-  <button
-    style="float: right; background-color: #3F51B5; outline: none; border: none; margin: 20px 0px; color: white; cursor: pointer; padding: 5px 20px; font-size: 21px;"
-    mat-button onclick="window.print()">Print</button>
+<div style="width: 100vw; height: 100vh; overflow-x: hidden;">
+<!-- <div class="cont">
+  <div id="load">
+    <div>G</div>
+    <div>N</div>
+    <div>I</div>
+    <div>D</div>
+    <div>A</div>
+    <div>O</div>
+    <div>L</div>
+  </div>
+</div> -->
+<div *ngIf="!dataProfile" style="position: absolute; background-color: black; top: 0; left: 0;right: 0;bottom: 0; z-index: 9999;">
+  <div id="load">
+    <div>G</div>
+    <div>N</div>
+    <div>I</div>
+    <div>D</div>
+    <div>A</div>
+    <div>O</div>
+    <div>L</div>
+  </div>
 </div>
-<div>
-  <div class="row ">
-    <div class=" col-md-6  bg-light">
+
+<div class="text-right pt-5" style="overflow: hidden;">
+
+</div>
+<div class="bg-light pb-5">
+  <div class="row">
+    <div class=" col-md-3 ">
       <div class="card">
         <div class="border"></div>
         <div style="position: relative;">
@@ -19,47 +41,81 @@
         </div>
         <hr />
         <div class="stats">
-          <h2>{{dataProfile?.firstName}} {{dataProfile?.lastName}}</h2>
+          <h3 class="text-center" style="font-size: 22px; font-weight: 500;">{{dataProfile?.firstName}} {{dataProfile?.lastName}}</h3>
           <hr />
           <div>
-            <blockquote>“{{dataProfile?.email}}”</blockquote>
-            <p>BirthDate: {{dataProfile?.birthDate}}</p>
-            <p>Phone: {{dataProfile?.mobile}}</p>
-            <p>Male: {{dataProfile?.male}}</p>
-            <p>Doctor: {{dataProfile?.doctor}}</p>
-            <button style="background-color: #FF4081; color: white;" mat-button color="warn" data-bs-toggle="modal"
-              data-bs-target="#exampleModal1">Edit
-              Profile</button>
+            <p>Email : {{dataProfile?.email}}</p>
+            <p>BirthDate : {{dataProfile?.birthDate}}</p>
+            <p>Phone : {{dataProfile?.mobile}}</p>
+            <p *ngIf="dataProfile?.male;else F">Gender : Male</p>
+            <ng-template #F>
+              <p>Gender : Female</p>
+            </ng-template>
+            <p *ngIf="dataProfile.email != 'admin@admin.com'">Doctor : {{dataProfile?.doctor}}</p>
+            <p *ngIf="dataProfile.email == 'admin@admin.com'">Type : Admin</p>
+            <p *ngIf="dataProfile.email != 'admin@admin.com'">Department : {{dataProfile?.department}}</p>
+            <div style="text-align: right; padding-right: 20px; padding-bottom: 20px;">
+              <button style="background-color: #FF4081; color: white;" mat-button color="warn" data-bs-toggle="modal"
+                data-bs-target="#exampleModal1">Edit Profile</button>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class=" col-md-9">
+      <div class="shadow p-2 mx-5" style="margin: 50px auto 0;">
+        <table *ngIf="dataProfile.email !=  'admin@admin.com'" class="table table-hover text-center">
+          <thead>
+            <th>BPM</th>
+            <th>SPO2</th>
+            <th>TEMP</th>
+            <th>Date</th>
+            <th>have Covid19</th>
+            <th>See More</th>
+          </thead>
+          <tbody>
+            <tr *ngIf="userResults?.length == 0">
+              <td rowspan="5" colspan="6">
+                <p class="alert alert-danger w-100">there were no results yet</p>
+
+              </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr *ngFor="let result of userResults">
+              <td>{{result.bpm}}</td>
+              <td>{{result.spo2}}</td>
+              <td>{{result.temp}}</td>
+              <td>{{result.date|date}}</td>
+              <td>{{result.haveCovid19}}</td>
+              <td><a mat-raised-button color="primary" [routerLink]="['/result',result.id]">Seemore</a></td>
+            </tr>
 
 
-    <div class=" col-md-5  bg-light">
-      <div class="shadow p-2" style="margin: 50px auto 0;">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel molestiae consequatur voluptatibus alias ut
-          fugit accusamus ipsum? Dolore iusto quam, veniam debitis voluptatibus a, odio non ratione vero asperiores
-          officiis! Ipsa, necessitatibus dolorum est esse, repellat tempora corporis dolor, quae exercitationem tenetur
-          quidem facilis non. Maxime, adipisci tempora nesciunt velit excepturi necessitatibus libero id numquam magnam
-          ad esse. Animi id odit distinctio earum cumque amet, explicabo laborum magni adipisci temporibus delectus
-          minus dignissimos recusandae! Labore corrupti, necessitatibus iste soluta aliquid non provident minus tempora
-          quod voluptates molestias ab porro quaerat animi blanditiis doloremque maiores repellendus quasi, atque earum.
-          Voluptates numquam qui facere ducimus dolore ab! Repellat vel similique in, earum inventore, quidem pariatur
-          distinctio assumenda consequuntur illum atque aliquid sunt eligendi cumque sequi autem error obcaecati
-          repudiandae necessitatibus ut. Adipisci quidem laborum minus ipsa ex a voluptates ipsum sit libero
-          reprehenderit eaque, minima quod perspiciatis, nulla quam maxime porro impedit enim? Pariatur quia voluptatum
-          quod dicta eveniet quas soluta nam itaque omnis! Laborum, quis reiciendis explicabo officia similique, facilis
-          omnis quam eligendi alias ipsa numquam sequi optio nesciunt error quo consequatur rem necessitatibus ipsam
-          aliquid cupiditate consequuntur cumque? Laborum libero ipsum quo? Alias ea laborum non exercitationem sed
-          aliquam quam voluptatum voluptas corporis, unde hic vitae placeat facilis, fuga error illo est velit adipisci
-          quos commodi maiores assumenda. Quisquam velit magni, odit accusantium ipsam ullam veritatis sint dignissimos
-          quia! Aspernatur veniam eum unde dolore voluptatem nisi corporis optio vero facilis, ea quaerat dolor
-          molestias praesentium. Nulla eaque asperiores magni, reiciendis veniam, totam iure in possimus excepturi modi
-          ex tempore suscipit perspiciatis! Doloremque possimus ut reprehenderit, at id nam dolor, modi aspernatur eaque
-          excepturi nesciunt! Tempore illum praesentium ut suscipit, facere consequuntur molestiae atque eos, officia
-          iure perferendis ducimus aspernatur. Asperiores molestias officia est perferendis minima ut esse quis libero
-          in?</p>
+          </tbody>
+
+        </table>
+
+        <div *ngIf="dataProfile.email ==  'admin@admin.com'">
+          <h1>Users :</h1>
+          <div class="row">
+            <div *ngFor="let user of users" class="col-sm-4 mb-5">
+              <div style="text-align: center;">
+              <img style="height: 200px; width: 200xp; border-radius: 50%;" [src]="user.imageProfile" alt="">
+
+              <div class="cation">
+                <p>{{user.firstName}} {{user.lastName}}</p>
+                <!-- <p>{{user.userId}}</p> -->
+                <a [routerLink]="['/userdetails',user.userId]" class="btn btn-outline-info">Details</a>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -79,9 +135,9 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="imageUpload" (ngSubmit)="addImg()">
-          <input class="form-control" type="file" (change)="uploadFile($event)" formControlName="imageUrl" />
+          <input class="form-control" type="file" (change)="uploadFile($event)" formControlName="imageUrl"  accept="image/*"/>
           <div class="center margin-top">
-            <button [disabled]="imageUpload.invalid" type="submit" mat-raised-button color="primary"
+            <button [disabled]="!visable" type="submit" mat-raised-button color="primary"
               data-bs-dismiss="modal">Edit</button>
           </div>
         </form>
@@ -103,76 +159,92 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="updateForm" (ngSubmit)="submit()">
-          <div style="margin: auto; width: 50%; display: flex; justify-content: space-around;">
-            <mat-form-field style="padding: 5px;">
-              <input matInput placeholder="FirstName" formControlName="firstName" />
-              <mat-error *ngIf="firstName?.errors?.['required']">
-                FirstName is required
-              </mat-error>
-            </mat-form-field>
 
-            <mat-form-field style="padding: 5px;">
-              <input matInput placeholder="LastName" formControlName="lastName" />
-              <mat-error *ngIf="lastName?.errors?.['required']">
-                LastName is required
-              </mat-error>
-            </mat-form-field>
 
+
+          <div class="row" style="justify-content: center;">
+
+            <div class="col-6">
+              <mat-form-field style="padding: 5px;" appearance="outline">
+                <input matInput placeholder="FirstName" formControlName="firstName" />
+                <mat-error *ngIf="firstName?.errors?.['required']">
+                  FirstName is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field style="padding: 5px;" appearance="outline">
+                <input matInput placeholder="LastName" formControlName="lastName" />
+                <mat-error *ngIf="lastName?.errors?.['required']">
+                  LastName is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field style="padding: 5px;" appearance="outline">
+                <input matInput type="text" placeholder="Phone" formControlName="mobile" />
+                <mat-error *ngIf="mobile?.errors?.['required']">
+                  Phone is required
+                </mat-error>
+
+                <mat-error *ngIf="mobile?.errors?.['pattern']">
+                  invalid Phome Number
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="col-6">
+              <mat-form-field style="padding: 5px;" appearance="outline">
+                <input matInput type="date" placeholder="BirthDate" formControlName="birthDate" />
+                <mat-error *ngIf="birthDate?.errors?.['required']">
+                  BirthDate is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+
+
+            <div class="col-6">
+              <div class="form-group" style="padding: 5px;">
+                <label  class="labrl">Gender</label>
+                <select class="form-control" formControlName="male">
+                  <option  value=true>Male</option>
+                  <option  value=false>Female</option>
+                </select>
+                <mat-error *ngIf="male?.errors?.['required']">You must make a selection</mat-error>
+              </div>
+            </div>
+
+
+            <div class="col-6" *ngIf="dataProfile.email != 'admin@admin.com'">
+              <div class="form-group" style="padding: 5px;">
+                <label class="label">Doctor</label>
+                <select class="form-control" formControlName="doctor">
+                  <option value=true>Doctor</option>
+                  <option value=false>Other</option>
+                  <mat-error *ngIf="doctor?.errors?.['required']">You must make a selection</mat-error>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-6" *ngIf="dataProfile.email != 'admin@admin.com'">
+              <div class="form-group" style="padding: 5px;">
+                <label class="label">Department</label>
+                <select class="form-control" formControlName="department">
+                  <option value="Communication">Communication</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Mecatronics">Mecatronics</option>
+                  <mat-error *ngIf="department?.errors?.['required']">You must make a selection</mat-error>
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div style="margin: auto; width: 50%;display: flex; justify-content: space-around; ">
-
-            <mat-form-field style="padding: 5px;">
-              <input matInput type="text" placeholder="Phone" formControlName="mobile" />
-              <mat-error *ngIf="mobile?.errors?.['required']">
-                Phone is required
-              </mat-error>
-
-              <mat-error *ngIf="mobile?.errors?.['pattern']">
-                invalid Phome Number
-              </mat-error>
-            </mat-form-field>
 
 
-            <mat-form-field style="padding: 5px;">
-              <input matInput type="date" placeholder="BirthDate" formControlName="birthDate" />
-              <mat-error *ngIf="birthDate?.errors?.['required']">
-                BirthDate is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-
-          <div style="margin: auto; width: 50%;display: flex; justify-content: space-around; ">
-
-            <mat-form-field style="padding: 5px;">
-              <mat-label>Gender</mat-label>
-              <mat-select style="z-index: 999;" formControlName="male">
-                <mat-option style="position: relative; z-index: 9999999;" value="true">Male</mat-option>
-                <mat-option style="z-index: 9999999;" value="false">Female</mat-option>
-              </mat-select>
-              <mat-hint>Errors appear instantly!</mat-hint>
-              <mat-error *ngIf="male?.errors?.['required']">You must make a selection</mat-error>
-            </mat-form-field>
-
-            <mat-form-field style="padding: 5px;">
-              <mat-label>Doctor</mat-label>
-              <mat-select formControlName="doctor">
-                <mat-option value="true">Doctor</mat-option>
-                <mat-option value="false">Other</mat-option>
-              </mat-select>
-              <mat-hint>Errors appear instantly!</mat-hint>
-              <mat-error *ngIf="doctor?.errors?.['required']">You must make a selection</mat-error>
-            </mat-form-field>
-          </div>
-
-
-          <div style="margin: auto; width: 50%;display: flex; justify-content: space-around; ">
-
-
-
-
-          </div>
           <br>
           <button [disabled]="updateForm.invalid" mat-raised-button color="primary"
             data-bs-dismiss="modal">Update</button>
@@ -184,3 +256,8 @@
     </div>
   </div>
 </div>
+</div>
+
+
+
+

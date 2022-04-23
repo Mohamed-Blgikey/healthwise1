@@ -5,7 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { finalize, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { ImageUplaodService } from 'src/app/services/image-uplaod.service';
+import { ChatStreamService } from 'src/app/services/chat-stream.service';
+import { ResultsService } from 'src/app/services/results.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,8 +14,12 @@ import { ImageUplaodService } from 'src/app/services/image-uplaod.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  dataProfile: any;
+  check: boolean = true;
+  visable: boolean = false;
+  dataProfile: any = '';
+  userResults: any;
   userId = localStorage.getItem('uid');
+  users:any;
 
   updateForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -28,6 +33,7 @@ export class ProfileComponent implements OnInit {
     ]),
     doctor: new FormControl('', [Validators.required]),
     male: new FormControl('', [Validators.required]),
+    department: new FormControl('', [Validators.required]),
   });
 
   imageUpload = new FormGroup({
@@ -39,38 +45,50 @@ export class ProfileComponent implements OnInit {
     private fs: AngularFirestore,
     private auth: AuthService,
     private storage: AngularFireStorage,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private _chatStream: ChatStreamService,
+    private _resultservices: ResultsService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
-  }
 
-  private getUser() {
-    this.fs
-      .collection('Users')
-      .ref.doc(localStorage.getItem('uid')?.toString())
-      .get()
-      .then((data) => {
-        this.dataProfile = data.data();
-        // console.log(this.dataProfile);
-        this.updateForm.controls['firstName'].setValue(
-          this.dataProfile.firstName
-        );
-        this.updateForm.controls['lastName'].setValue(
-          this.dataProfile.lastName
-        );
-        this.updateForm.controls['mobile'].setValue(this.dataProfile.mobile);
-        this.updateForm.controls['birthDate'].setValue(
-          this.dataProfile.birthDate
-        );
-        this.updateForm.controls['doctor'].setValue(this.dataProfile.doctor);
-        this.updateForm.controls['male'].setValue(this.dataProfile.male);
+    this._resultservices.GetAllResults().subscribe((res) => {
+      // console.log(res);
+      this.userResults = res.filter((r: any) => {
+        return r.userId == localStorage.getItem('uid')?.toString();
       });
+      // console.log(this.userResults);
+    });
+
+    this.auth.GetAllUsers().subscribe((res) => {
+      // console.log(res);
+      this.users= res.filter((u:any)=>{
+        return u.email != "admin@admin.com" && u.doctor == false
+      })
+      // console.log(this.users);
+
+    });
   }
 
   submit() {
     // console.log(this.updateForm.value);
+    let doctorState;
+    let maleState;
+
+    if (this.updateForm.controls['doctor'].value == 'true' ||  this.updateForm.controls['doctor'].value == true) {
+      doctorState = true;
+    } else {
+      doctorState = false;
+    }
+    if (this.updateForm.controls['male'].value == 'true' ||  this.updateForm.controls['male'].value == true) {
+      maleState = true;
+    } else {
+      maleState = false;
+    }
+
+    // console.log(doctorState,maleState);
+
     this.fs
       .collection('Users')
       .doc(this.dataProfile.userId)
@@ -79,11 +97,20 @@ export class ProfileComponent implements OnInit {
         lastName: this.updateForm.controls['lastName'].value,
         mobile: this.updateForm.controls['mobile'].value,
         birthDate: this.updateForm.controls['birthDate'].value,
-        doctor: this.updateForm.controls['doctor'].value,
-        male: this.updateForm.controls['male'].value,
+        department: this.updateForm.controls['department'].value,
+        doctor: doctorState,
+        male: maleState,
       })
       .then(() => {
         this.getUser();
+      })
+      .then(() => {
+        this._chatStream.stupChannel(
+          this.dataProfile?.userId,
+          this.dataProfile?.firstName + ' ' + this.dataProfile?.lastName,
+          this.dataProfile?.imageProfile
+        );
+        this.auth.user.next(this.dataProfile);
       });
   }
 
@@ -99,6 +126,7 @@ export class ProfileComponent implements OnInit {
       this.imgSrc = 'assets/images/image-placeholder.png';
       this.selectedImage = null;
     }
+    this.visable = true;
   }
 
   addImg() {
@@ -125,7 +153,18 @@ export class ProfileComponent implements OnInit {
                 })
                 .then(() => {
                   this.auth.user.next(url);
+                  this.visable = false;
                   this.getUser();
+                })
+                .then(() => {
+                  this._chatStream.stupChannel(
+                    this.dataProfile?.userId,
+                    this.dataProfile?.firstName +
+                      ' ' +
+                      this.dataProfile?.lastName,
+                    this.dataProfile?.imageProfile
+                  );
+                  this.auth.user.next(this.dataProfile);
                 });
             });
           })
@@ -159,5 +198,28 @@ export class ProfileComponent implements OnInit {
 
   get male() {
     return this.updateForm.get('male');
+  }
+  get department() {
+    return this.updateForm.get('department');
+  }
+
+  private getUser() {
+    this.auth.GetUser().then((data) => {
+      this.dataProfile = data.data();
+      // console.log(this.dataProfile);
+      this.updateForm.controls['firstName'].setValue(
+        this.dataProfile.firstName
+      );
+      this.updateForm.controls['lastName'].setValue(this.dataProfile.lastName);
+      this.updateForm.controls['mobile'].setValue(this.dataProfile.mobile);
+      this.updateForm.controls['birthDate'].setValue(
+        this.dataProfile.birthDate
+      );
+      this.updateForm.controls['doctor'].setValue(this.dataProfile.doctor);
+      this.updateForm.controls['male'].setValue(this.dataProfile.male);
+      this.updateForm.controls['department'].setValue(
+        this.dataProfile.department
+      );
+    });
   }
 }

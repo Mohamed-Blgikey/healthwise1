@@ -1,0 +1,102 @@
+<div style="width: 100vw; height: 100vh; overflow-x: hidden;">
+  <!-- <div class="cont">
+    <div id="load">
+      <div>G</div>
+      <div>N</div>
+      <div>I</div>
+      <div>D</div>
+      <div>A</div>
+      <div>O</div>
+      <div>L</div>
+    </div>
+  </div> -->
+  <div *ngIf="!dataProfile" style="position: absolute; background-color: black; top: 0; left: 0;right: 0;bottom: 0; z-index: 9999;">
+    <div id="load">
+      <div>G</div>
+      <div>N</div>
+      <div>I</div>
+      <div>D</div>
+      <div>A</div>
+      <div>O</div>
+      <div>L</div>
+    </div>
+  </div>
+
+  <div class="text-right pt-5" style="overflow: hidden;">
+
+  </div>
+  <div class="bg-light pb-5">
+    <div class="row">
+      <div class=" col-md-3 ">
+        <div class="card">
+          <div class="border"></div>
+          <div style="position: relative;">
+            <div class="avatar">
+              <img class="mat-elevation-z1" [src]="dataProfile?.imageProfile ?? 'assets/images/image-placeholder.png'"
+                [alt]="dataProfile?.firstName + dataProfile?.lastName" />
+            </div>
+
+          </div>
+          <hr />
+          <div class="stats">
+            <h3 class="text-center" style="font-size: 22px; font-weight: 500;">{{dataProfile?.firstName}} {{dataProfile?.lastName}}</h3>
+            <hr />
+            <div>
+              <p>Email : {{dataProfile?.email}}</p>
+              <p>BirthDate : {{dataProfile?.birthDate}}</p>
+              <p>Phone : {{dataProfile?.mobile}}</p>
+              <p *ngIf="dataProfile?.male;else F">Gender : Male</p>
+              <ng-template #F>
+                <p>Gender : Female</p>
+              </ng-template>
+              <p>Doctor : {{dataProfile?.doctor}}</p>
+              <p>Department : {{dataProfile?.department}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" col-md-9">
+        <div class="shadow p-2 mx-5" style="margin: 50px auto 0;">
+          <table class="table table-hover text-center">
+            <thead>
+              <th>BPM</th>
+              <th>SPO2</th>
+              <th>TEMP</th>
+              <th>Date</th>
+              <th>have Covid19</th>
+              <th>See More</th>
+            </thead>
+            <tbody>
+              <tr *ngIf="userResults?.length == 0">
+                <td rowspan="5" colspan="6">
+                  <p class="alert alert-danger w-100">there were no results yet</p>
+
+                </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              </tr>
+              <tr *ngFor="let result of userResults">
+                <td>{{result.bpm}}</td>
+                <td>{{result.spo2}}</td>
+                <td>{{result.temp}}</td>
+                <td>{{result.date|date}}</td>
+                <td>{{result.haveCovid19}}</td>
+                <td><a mat-raised-button color="primary" [routerLink]="['/result',result.id]">Seemore</a></td>
+              </tr>
+
+
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+

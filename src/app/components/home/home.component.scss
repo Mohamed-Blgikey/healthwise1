@@ -1,0 +1,261 @@
+
+p.first{
+  font-size: 6rem;
+  margin-bottom: 0rem;
+  color: #d4c0a5;
+}
+
+p.second{
+  font-size: 5rem;
+  margin-bottom: 0rem;
+  color: #B7CADB;
+}
+
+
+p.third{
+  font-size: 4rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: #F3E9DD
+}
+p.info{
+  font-size: 2rem;
+  line-height: 2;
+  color:#fff;
+  text-align: center;
+
+}
+
+p{
+  font-size: 1.6rem;
+  color: #345375;
+  line-height: 2;
+}
+
+/*nav section*/
+.nav-contaner{
+  background: #334e68;
+  color: #f0f4f8;
+}
+
+nav{
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1360px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
+  font-size: 1.6rem;
+}
+
+nav h3.logo{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3.6rem;
+  color: #f0f4f8;
+  flex: 3;
+}
+
+.login{
+  display: center;
+  font-size: 2rem;
+  border: 1px solid orange;
+  border-radius: 20px;
+  background: #335375;
+  padding: 5px 20px;
+  margin: 0;
+  flex: 0.3;
+}
+
+
+.login a{
+  text-decoration: none;
+  color: #f0f4f8;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  position: relative;
+}
+
+.login:hover,.login a:hover{
+  color: orange;
+  border-color: #335375;
+  transition: .6s;
+}
+
+
+/*eccat section*/
+
+.eccat-header{
+  height: 90vh;
+  position: relative;
+
+}
+
+.eccat-header::after{
+  content:"";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(
+      120deg,
+      rgba(40,78,104,0.8) 0%,
+      rgba(20,63,92,0.5) 60%
+  ),
+  url("../../../assets/images/ECCAT.jpg");
+  background-size: cover, 100% 100%;
+}
+
+.content{
+  width: 90%;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 1366px;
+  display: block;
+  flex-direction: column;
+  justify-content: center;
+  align-items:stretch;
+  height: 90vh;
+}
+
+h1 span{
+  color: #27ab83;
+}
+
+.btn{
+  margin-top: 2rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 00.75rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background: #d4c0a5;
+
+}
+
+.btn a{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #fff;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+.btn:hover,.btn a:hover{
+  background: #B7CADB;
+  color: #119cec83;
+}
+
+.btn:active{
+  transform: scale(0.98);
+}
+
+
+/*qualitise section*/
+
+.qualitise{
+  width: 90%;
+  margin: 4rem auto;
+  max-width: 1366px;
+  height: 100vh;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.qualitise h2{
+  font-size: 3rem;
+}
+
+.quality-Container{
+  display: flex;
+  justify-content: space-between;
+  grid-gap: 2rem;
+  padding-top: 5rem;
+}
+
+
+.quality{
+  background: #bccdcb;
+  padding: 4rem 0;
+  width: 30%;
+}
+
+.quality p{
+  text-align: center;
+  width: 70%;
+  margin: 1rem auto;
+}
+
+.quality h3{
+  color: black;
+  font-size: 2.2rem;
+}
+
+.Header-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*About-us section*/
+
+.about-us{
+  width: 90;
+  background: #334e68;
+  max-width: flex;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+  height: 35vh;
+  justify-content: space-between;
+  display: block;
+
+}
+
+.about-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.about-content h2{
+  color: #d9e2ec;
+  font-size: 3rem;
+  margin: 1rem;
+
+}
+
+.about-content p{
+  font-size: 2rem;
+  margin-top: 1rem;
+  color: #d5d5d5;
+  width: 88%;
+  padding: 0 3rem;
+}
+
+
+/* footer section */
+
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #243b53;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+footer p{
+  color: #d9d9d9;
+}
+
+

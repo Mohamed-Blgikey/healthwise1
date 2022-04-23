@@ -1,0 +1,144 @@
+
+<div *ngIf="!user && !result" style="position: absolute; background-color: black; top: 0; left: 0;right: 0;bottom: 0; z-index: 9999;">
+  <div id="load">
+    <div>G</div>
+    <div>N</div>
+    <div>I</div>
+    <div>D</div>
+    <div>A</div>
+    <div>O</div>
+    <div>L</div>
+  </div>
+</div>
+
+<div class="bg-light" style="height: 100vh; overflow-x: hidden">
+  <div class="row pt-5">
+
+    <!--  -->
+    <div class="col-12 pb-4 ps-4 pe-4 pt-0">
+      <div>
+        <div>
+          <hr />
+          <h2 style="display: flex; justify-content: space-between; color: #243B53; font-weight: bold;">User deatails : <div style="position: relative;">
+            <div style="position: absolute; right: 0;" >
+              <button
+              mat-raised-button color="primary"
+              onclick="window.print()"
+            >
+              Print Result
+            </button>
+            </div>
+          </div></h2>
+          <hr />
+
+          <div class="row" style="text-align: center;">
+            <div class="col-12">
+              <div class="pb-1">
+                <img style="width: 250px; height: 250px; border-radius: 50%;" [src]="user?.imageProfile" alt="" />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div>
+                <p><span class="title">Name :</span> {{ user?.firstName }} {{ user?.lastName }}</p>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div>
+                <p>Email : {{ user?.email }}</p>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div>
+                <p>BirthDate : {{ user?.birthDate }}</p>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div>
+                <p>Phone : {{ user?.mobile }}</p>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div>
+                <p *ngIf="user?.male; else F">Gender : Male</p>
+                <ng-template #F>
+                  <p>Gender : Female</p>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div>
+                <p>Doctor : {{ user?.doctor }}</p>
+              </div>
+            </div>
+
+          </div>
+          <hr />
+          <div>
+            <h2 style="color: #243B53; font-weight: bold;">User result :</h2>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <div>
+                  <p>BPM : {{ result?.bpm }}</p>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div>
+                  <p>BPM Case : {{ result?.bpmCase }}</p>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div>
+                  <p>SPO2 : {{ result?.spo2 }}</p>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div>
+                  <p>SPO2 Case : {{ result?.spo2Case }}</p>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div>
+                  <p>Temp : {{ result?.temp }}</p>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div>
+                  <p>TEMP Case : {{ result?.tempCase }}</p>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div>
+                  <p>Date : {{ result?.date | date }}</p>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div>
+                  <p>Have Covid19 : {{ result?.haveCovid19 }}</p>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div>Note : {{ result?.note }}</div>
+              </div>
+            </div>
+
+
+            <div class="head py-4 pe-5">Doctor's signature</div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

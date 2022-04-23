@@ -20,10 +20,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { environment } from '../environments/environment.prod';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { getStorage, provideStorage } from '@angular/fire/storage';
+import { ResultComponent } from './components/profile/result/result.component';
+import { UserdetailsComponent } from './components/userdetails/userdetails.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     ProfileComponent,
     HomeComponent,
     ProfileComponent,
+    ResultComponent,
+    UserdetailsComponent,
   ],
   imports: [
     BrowserModule,

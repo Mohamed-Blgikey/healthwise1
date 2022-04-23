@@ -1,12 +1,18 @@
 mat-toolbar {
   justify-content: space-between;
+  background-color: #243B53;
+ color: white;
+ position: fixed;
+ top: 0;
+ z-index: 999;
 }
 
-.content {
-  padding: 32px;
-}
+
 
 .profile-image-toolbar {
   border-radius: 100%;
   margin-right: 8px;
 }
+
+
+
